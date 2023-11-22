@@ -23,6 +23,7 @@ def relaunch_game():
 
 # Fonction pour jouer une partie
 def play_one_game(min_val, max_val, attempts_max):
+    # Generer un nombre aléatoire
     nb = randint(min_val, max_val)
     attempts = 1
     score = 0
@@ -57,6 +58,7 @@ def launch_game():
     print("---------------------♥---------------------")
     print("Bienvenue sur ce jeu de plus ou moins !")
 
+    # Afficher les regles du jeu
     reponse = input("Souhaitez-vous consulter les règles (Y/N) ? ")
     if reponse.upper() == "Y":
         print("---------------------♥---------------------")
@@ -71,10 +73,12 @@ def launch_game():
         print("---------------------♥---------------------")
 
     while True:
+        # Demander au joueur de definir les parametres du jeu
         attempts_max = ask_int("Choisissez le nombre de tentatives possibles : ", 1, 100)
         min_nb = ask_int("Choisissez une borne minimale : ", 1, 100)
         max_nb = ask_int("Choisissez une borne maximale : ", 1, 100)
 
+        # Verifier si les bornes sont valides
         if min_nb >= max_nb:
             print("La borne minimale doit être strictement inférieure à la borne maximale. Veuillez recommencer.")
             continue
@@ -87,6 +91,7 @@ def launch_game():
             continue
 
         while True:
+            # Joueur une partie avec les parametres definis
             play_one_game(min_nb, max_nb, attempts_max)
 
             relaunch, use_same_params = relaunch_game()
