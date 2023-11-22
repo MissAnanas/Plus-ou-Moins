@@ -1,5 +1,7 @@
+# Importer "randint" de la base de donnée "random"
 from random import randint
 
+# Fonction pour verifier si le joueur a saisit un nombre entier dans une plage donnée
 def ask_int(message: str, min_val: int, max_val: int) -> int:
     while True:
         try:
@@ -11,6 +13,7 @@ def ask_int(message: str, min_val: int, max_val: int) -> int:
         except ValueError:
             print("Veuillez entrer un nombre entier valide.")
 
+# Fonction pour demander au joueur s'il souhaite relancer le jeu (avec ou sans les memes parametres)
 def relaunch_game():
     reponse = input("Souhaitez-vous relancer une partie (Y/N) ? ")
     if reponse.upper() == "Y":
@@ -18,6 +21,7 @@ def relaunch_game():
         return True, use_same_params
     return False, False
 
+# Fonction pour jouer une partie
 def play_one_game(min_val, max_val, attempts_max):
     nb = randint(min_val, max_val)
     attempts = 1
@@ -25,36 +29,37 @@ def play_one_game(min_val, max_val, attempts_max):
 
     while score != nb and attempts <= attempts_max:
         remaining_attempts = attempts_max - attempts + 1
-        print("---------------------<3---------------------")
+        print("---------------------♥---------------------")
         print(f"Le numéro se situe entre {min_val} et {max_val}.")
         print("Il vous reste", remaining_attempts, "tentatives.")
         score = ask_int("Choisissez un nombre : ", min_val, max_val)
 
         if score < nb:
-            print("---------------------<3---------------------")
-            print("Plus que" ,score,"!")
+            print("---------------------♥---------------------")
+            print("Plus que", score, "!")
         elif score > nb:
-            print("---------------------<3---------------------")
-            print("Moins que" ,score,"!")
+            print("---------------------♥---------------------")
+            print("Moins que", score, "!")
         else:
-            print("---------------------<3---------------------")
-            print("Bravo ! Vous avez trouvé le nombre ", "en", attempts, "essai(s)")
+            print("---------------------♥---------------------")
+            print("Bravo ! Vous avez trouvé le nombre ", "en", attempts, "essai(s).")
             break
         attempts += 1
 
     if attempts > attempts_max and score != nb:
-        print("---------------------<3---------------------")
+        print("---------------------♥---------------------")
         print("Vous n'avez plus aucune tentative.")
         print("Dommage ! Le bon nombre était : ", nb, ".")
-        print("---------------------<3---------------------")
+        print("---------------------♥---------------------")
 
+# Fonction pour lancer le jeu
 def launch_game():
-    print("---------------------<3---------------------")
+    print("---------------------♥---------------------")
     print("Bienvenue sur ce jeu de plus ou moins !")
-    
+
     reponse = input("Souhaitez-vous consulter les règles (Y/N) ? ")
     if reponse.upper() == "Y":
-        print("---------------------<3---------------------")
+        print("---------------------♥---------------------")
         print("Règles :")
         print("- Le but du jeu est de deviner le chiffre choisi par l'ordinateur. - ")
         print("------> - Définissez le nombre de tentatives que vous aurez,")
@@ -63,7 +68,7 @@ def launch_game():
         print("------> - Plus ! alors votre nombre est plus petit que celui de l'ordinateur,")
         print("------> - Moins ! alors votre nombre est plus grand que celui de l'ordinateur,")
         print("------> - Attention à bien surveiller vos tentatives restantes !")
-        print("---------------------<3---------------------")
+        print("---------------------♥---------------------")
 
     while True:
         attempts_max = ask_int("Choisissez le nombre de tentatives possibles : ", 1, 100)
@@ -83,12 +88,12 @@ def launch_game():
 
         while True:
             play_one_game(min_nb, max_nb, attempts_max)
-            
+
             relaunch, use_same_params = relaunch_game()
             if not relaunch:
-                print("---------------------<3---------------------")
+                print("---------------------♥---------------------")
                 print("Fin de la partie !")
-                print("---------------------<3---------------------")
+                print("---------------------♥---------------------")
                 break
             elif not use_same_params:
                 break
@@ -96,5 +101,5 @@ def launch_game():
         if not relaunch:
             break
 
+# Appeler la fonction pour lancer le jeu
 launch_game()
-
